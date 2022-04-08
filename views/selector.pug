@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}. My name is Bhargavreddy Singireddy
+  - var image_names = ["Singireddy Mansion.jpg","Baddam Mansion.jpg","Laxmi Mansion.jpg","housepic4.jpg","housepic5.jpg"]
+  - for(let i=0; i<3; i++){
+    - var j=Math.floor(Math.random()*5);
+    - var img_j=image_names[j];
+    image(height="300" width="300" src=`\\images\\${img_j}` alt=`${img_j}` )
+  - }

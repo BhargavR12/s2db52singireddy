@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}. My name is Bhargavreddy Singireddy
+  - let results=[{House_name:"Singireddy Mansion",Location:"Ammakkapet",House_number:"59"},{House_name:"Baddam Mansion",Location:"Uploor",House_number:"45"},{House_name:"Laxmi Mansion",Location:"Nizambad",House_number:"34"}]
+  div(class="container-fluid")
+    div(class="row")
+      each house, index in results
+        div(class="col-sm-2" onclick=`buy(${index+1})`) #{house.House_name} - #{house.Location} - #{house.House_number}
+
+  script.
+    function buy(index){
+      alert(`You purchased item ${index}`);
+    }         
