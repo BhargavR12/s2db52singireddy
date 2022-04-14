@@ -1,3 +1,4 @@
+var house = require('../models/house');
 var express = require('express');
 var router = express.Router();
 // Require controller modules.
@@ -18,3 +19,14 @@ router.get('/house/:id', house_controller.house_detail);
 // GET request for list of all house items.
 router.get('/house', house_controller.house_list);
 module.exports = router;
+
+exports.house_list = async function(req, res) {
+    try{
+    thehouse = await house.find();
+    res.send(thehouse);
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+   };
