@@ -1,0 +1,25 @@
+extends layout 
+ 
+block content 
+  h1= title 
+  
+  if (toShow == null) 
+    h2 No instance to detail
+  else
+    - let House_id = toShow._id 
+    - let House_name = toShow.House_name 
+    - let Location = toShow.Location
+    - let House_number = toShow.House_number
+    div
+      .row 
+        div(class='HouseAttr mr-3') House ID is:  
+        div(class='values') #{House_id}
+      .row
+        div(class='HouseAttr mr-3') House_name is:
+        div(class='values') #{House_name}
+      .row
+        div(class='HouseAttr mr-3') Location is:
+        div(class='values') #{Location}
+      .row
+        div(class='HouseAttr mr-3') House_number is:
+        div(class='values') #{House_number}

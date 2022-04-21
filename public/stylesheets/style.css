@@ -6,3 +6,177 @@ body {
 a {
   color: #00B7FF;
 }
+.houseAttr{
+  background-color: aquamarine;
+  width: 120px;
+  box-sizing: border-box;
+  border-style: double;
+  border-color: rgb(76 201 173 / 74%);
+  border-radius: 5px;
+  border-width: thick;
+}
+.values {
+  border: outset;
+  width: 200px;
+  border-color: rgb(255, 127, 236);
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+-- #1
+SELECT order_id,order_date,meth_pmt,first,last 
+FROM cust_order,customer 
+WHERE cust_order.cust_id=customer.cust_id;
+
+-- #2
+SELECT order_id,order_date,order_source.order_source_id,source_desc,first,last
+FROM cust_order,order_source,customer
+WHERE cust_order.cust_id=customer.cust_id
+AND cust_order.order_source_id=order_source.order_source_id;
+
+-- #3
+SELECT shipment.shipment_id,inv_id,ship_quantity,date_expected,date_received 
+FROM shipment_line,shipment 
+WHERE shipment_line.shipment_id=shipment.shipment_id;
+
+-- #4
+SELECT shipment_id,item_id,item_size,color,price 
+FROM shipment_line,inventory 
+WHERE shipment_line.inv_id=inventory.inv_id 
+AND color LIKE '%ight%';
+
+-- #5
+SELECT DISTINCT item.item_id,item_desc,item_size,price 
+FROM inventory 
+INNER JOIN item ON inventory.item_id=item.item_id 
+WHERE item_size LIKE '%M%';
+
+-- #6
+SELECT last,order_id,order_date,source_desc 
+FROM customer 
+INNER JOIN cust_order ON cust_order.cust_id=customer.cust_id
+INNER JOIN order_source ON cust_order.order_source_id=order_source.order_source_id 
+WHERE order_date>'2003-05-31';
+
+-- #7
+SELECT inv_id,item_size,color,price 
+FROM inventory 
+WHERE price=(SELECT MAX(price) FROM inventory);
+
+-- #8
+SELECT DISTINCT order_id 
+FROM order_line
+WHERE EXISTS
+(SELECT * FROM inventory WHERE inv_id=order_line.inv_id 
+AND (color LIKE '%u%' OR color LIKE '%e'));
+
+-- #9
+SELECT inv_id,item_id,color,qoh 
+FROM inventory
+WHERE qoh=(SELECT MAX(qoh) FROM inventory);
+
+-- #10
+SELECT inv_id,item_id,color,qoh 
+FROM inventory
+WHERE qoh=(SELECT MIN(qoh) FROM inventory);
+
+-- #11
+SELECT inv_id,item_id,color,qoh,'Largest' AS Comments 
+FROM inventory
+WHERE qoh=(SELECT MAX(qoh) FROM inventory) 
+UNION 
+SELECT inv_id,item_id,color,qoh,'Smallest' AS Comments 
+FROM inventory
+WHERE qoh=(SELECT MIN(qoh) FROM inventory);
+
+-- #12
+SELECT item.item_id,item_desc,SUM(qoh) AS totalquantity 
+FROM item,inventory 
+WHERE inventory.item_id=item.item_id
+GROUP BY item.item_id
+HAVING SUM(qoh)>=ALL(SELECT SUM(qoh) FROM inventory,item WHERE inventory.item_id=item.item_id
+GROUP BY item.item_id);
+
+-- #13
+SELECT item.item_id,item_desc,SUM(qoh) AS totalquantity 
+FROM item,inventory 
+WHERE inventory.item_id=item.item_id
+GROUP BY item.item_id
+HAVING SUM(qoh)<=ALL(SELECT SUM(qoh) FROM inventory,item WHERE inventory.item_id=item.item_id
+GROUP BY item.item_id);
+ body {
+padding: 50px;
+font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}a {
+color: #00B7FF;
+}/* .elementAttr{
+background-color: aquamarine;
+width: 120px;
+} */ .mb-2 {
+padding-left: 20px;
+}
+input[type=text], select {
+width: 100%;
+margin: 8px 0;
+display: inline-block;
+border: 1px solid #ccc;
+border-radius: 4px;
+box-sizing: border-box;
+}
+input[type=submit] {
+width: 100%;
+background-color: #4c65af;
+color: rgb(255, 255, 255);
+margin: 8px 0;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+width: 200px; }
+input[type=submit]:hover {
+background-color: #4c45a0;
+}
+div {
+border-radius: 5px;
+background-color: #badabc;
+width: 500px;
+padding: 2px;
+}
+
+
+body {
+padding: 50px;
+font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}a {
+color: #00B7FF;
+}/* .elementAttr{
+background-color: aquamarine;
+width: 120px;
+} */ .mb-2 {
+padding-left: 20px;
+}
+input[type=text], select {
+width: 100%;
+margin: 8px 0;
+display: inline-block;
+border: 1px solid #ccc;
+border-radius: 4px;
+box-sizing: border-box;
+}
+input[type=submit] {
+width: 100%;
+background-color: #4CAF50;
+color: white;
+margin: 8px 0;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+width: 200px; }
+input[type=submit]:hover {
+background-color: #45a049;
+}
+div {
+border-radius: 5px;
+background-color: #dababa;
+width: 500px;
+padding: 2px;
+}
+
