@@ -25,14 +25,14 @@ block content
     div(class = "row m-1")
      each item in items  
       - let destination = `dispatch(\"/house/update?id=${item._id}\")`
-      //- let destination1 = `dispatch(\"/Season/create\")`
-      //- let destination2 = `dispatch(\"/Season/detail?id=${item._id}\")`
-      //- let destination3 = `dispatch(\"/Season/delete?id=${item._id}\")`
+      - let destination1 = `dispatch(\"/house/create\")`
+      - let destination2 = `dispatch(\"/house/detail?id=${item._id}\")`
+      - let destination3 = `dispatch(\"/house/delete?id=${item._id}\")`
       div(class="row-sm-2", class="m-1") house_name: #{item. House_name}(#{item.Location}) is #{item.House_number}  
         button.btn( class="btn-primary ml-1", onclick= destination, style = "margin:8px;") Update
-        //-button.btn( class="btn-primary ml-1", onclick= destination1, style = "margin:8px;" ) Create
-        //-button.btn( class="btn-primary ml-1", onclick= destination2, style = "margin:8px;" ) Detail
-        //-button.btn( class="btn-primary ml-1", onclick= destination3, style = "margin:8px;" ) Delete
+        button.btn( class="btn-primary ml-1", onclick= destination1, style = "margin:8px;" ) Create
+        button.btn( class="btn-primary ml-1", onclick= destination2, style = "margin:8px;" ) Detail
+        button.btn( class="btn-primary ml-1", onclick= destination3, style = "margin:8px;" ) Delete
   script.
     function buy(itemNo){
         alert(`You purchased item ${itemNo+1}`)
@@ -41,3 +41,27 @@ block content
     function dispatch(path){ 
         window.location.href=path 
     } 
+
+    extends layout
+
+block content
+  - let create = `dispatch(\"House/create\")`
+     button.btn(class="btn-primary m1-1", onclick=create) Create
+  h1= title
+  - let House=results;
+  div(class="container-fluid mt-3")
+   div(class="row m-1")
+    each element in House
+     - let destination=`buy(\"/House/update?id=${element._id}\")`
+     - let detail=`buy(\"/House/detail?id=${element._id}\")`
+     - let del=`buy(\"/House/delete?id=${element._id}\")`
+     div(class="col-sm-6 bg-secondary m-1 p-3") House #{element.Itemname} - #{element.Quantity} - #{element.price}
+        button.btn( class="btn-info ml-2", onclick=destination ) Update
+        button.btn( class="btn-dark ml-2", onclick=detail ) Get Detail
+        button.btn( class="btn-warning ml-2", onclick=del ) Delete
+  
+   script.
+    function buy(path){
+        window.location.href=path
+
+       
